@@ -13,9 +13,9 @@ from openai import OpenAI
 # =============================================
 #   KONFIGURASI - ISI DI SINI
 # =============================================
-TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
-MEGALLM_API_KEY    = os.environ.get("MEGALLM_API_KEY", "")
-MEGALLM_BASE_URL   = os.environ.get("MEGALLM_BASE_URL", "https://ai.megallm.io/v1")
+TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
+MEGALLM_API_KEY    = os.environ.get("MEGALLM_API_KEY", "").strip()
+MEGALLM_BASE_URL   = os.environ.get("MEGALLM_BASE_URL", "https://ai.megallm.io/v1").strip()
 MODEL_NAME         = "qwen3p5-235b-a22b"   # Qwen 3.5 397B di MegaLLM
 
 # =============================================
@@ -89,6 +89,10 @@ def clear_history(user_id: int):
 #   FUNGSI TANYA KE AI
 # =============================================
 def ask_ai(user_id: int, user_message: str) -> str:
+    if not MEGALLM_API_KEY:
+        logger.error("MEGALLM_API_KEY is not set — cannot make API request.")
+        return "Maaf, konfigurasi API belum lengkap. Hubungi admin bot ya."
+
     add_to_history(user_id, "user", user_message)
 
     messages = [{"role": "system", "content": SYSTEM_PROMPT}]
@@ -345,6 +349,17 @@ def main():
     if not TELEGRAM_BOT_TOKEN:
         print("ERROR: Environment variable TELEGRAM_BOT_TOKEN is not set. Exiting.")
         raise SystemExit(1)
+
+    if not MEGALLM_API_KEY:
+        print("ERROR: Environment variable MEGALLM_API_KEY is not set. Exiting.")
+        raise SystemExit(1)
+
+    # Debug logging — shows presence/length without exposing actual key values
+    logger.info("Config check — TELEGRAM_BOT_TOKEN: %s (length: %d)",
+                "SET" if TELEGRAM_BOT_TOKEN else "NOT SET", len(TELEGRAM_BOT_TOKEN))
+    logger.info("Config check — MEGALLM_API_KEY: %s (length: %d)",
+                "SET" if MEGALLM_API_KEY else "NOT SET", len(MEGALLM_API_KEY))
+    logger.info("Config check — MEGALLM_BASE_URL: %s", MEGALLM_BASE_URL)
 
     print("=" * 50)
     print("  Asisten Akademik PTI UNESA - Telegram Bot")
