@@ -4,7 +4,6 @@ import tempfile
 import asyncio
 from pathlib import Path
 from telegram import Update
-from telegram import Document
 from telegram.ext import (
     Application, CommandHandler, MessageHandler,
     filters, ContextTypes
@@ -275,7 +274,7 @@ async def handle_teks(update: Update, context: ContextTypes.DEFAULT_TYPE):
 # =============================================
 async def handle_dokumen(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
-    dokumen: Document = update.message.document
+    dokumen: "Document" = update.message.document
     caption = update.message.caption or "Tolong baca dan analisis file ini. Buat rangkuman isinya."
 
     await context.bot.send_chat_action(
