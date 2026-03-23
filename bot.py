@@ -10,7 +10,7 @@ from telegram.ext import (
 )
 from openai import OpenAI
 
-# =============================================
+# ============================================
 #   KONFIGURASI - ISI DI SINI
 # =============================================
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "8748967261:AAHX33EjBKctGw3ZvSlJoEIXvrjv_tQcNqA").strip()
