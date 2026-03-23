@@ -16,7 +16,7 @@ from openai import OpenAI
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "8748967261:AAHX33EjBKctGw3ZvSlJoEIXvrjv_tQcNqA").strip()
 MEGALLM_API_KEY    = os.environ.get("MEGALLM_API_KEY", "sk-mega-0787d693edf23072bfb73b3f11ba78bdafc276c4005dc079d836c04113ceb6bd").strip()
 MEGALLM_BASE_URL   = os.environ.get("MEGALLM_BASE_URL", "https://ai.megallm.io/v1").strip()
-MODEL_NAME         = "Qwen 3.5 397B"   # Qwen 3.5 397B di MegaLLM
+MODEL_NAME         = "alibaba-qwen3.5-397b"   # Qwen 3.5 397B di MegaLLM
 
 # =============================================
 #   SETUP LOGGING
