@@ -13,9 +13,9 @@ from openai import OpenAI
 # =============================================
 #   KONFIGURASI - ISI DI SINI
 # =============================================
-TELEGRAM_BOT_TOKEN = "ISI_TOKEN_BOT_TELEGRAM_KAMU"
-MEGALLM_API_KEY    = "ISI_API_KEY_MEGALLM_KAMU"
-MEGALLM_BASE_URL   = "https://ai.megallm.io/v1"
+TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
+MEGALLM_API_KEY    = os.environ.get("MEGALLM_API_KEY", "")
+MEGALLM_BASE_URL   = os.environ.get("MEGALLM_BASE_URL", "https://ai.megallm.io/v1")
 MODEL_NAME         = "qwen3p5-235b-a22b"   # Qwen 3.5 397B di MegaLLM
 
 # =============================================
@@ -342,6 +342,10 @@ async def handle_error(update: Update, context: ContextTypes.DEFAULT_TYPE):
 #   MAIN - JALANKAN BOT
 # =============================================
 def main():
+    if not TELEGRAM_BOT_TOKEN:
+        print("ERROR: Environment variable TELEGRAM_BOT_TOKEN is not set. Exiting.")
+        raise SystemExit(1)
+
     print("=" * 50)
     print("  Asisten Akademik PTI UNESA - Telegram Bot")
     print("  Model: Qwen 3.5 | MegaLLM API")
