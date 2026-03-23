@@ -3,7 +3,8 @@ import logging
 import tempfile
 import asyncio
 from pathlib import Path
-from telegram import Update, Document
+from telegram import Update
+from telegram import Document
 from telegram.ext import (
     Application, CommandHandler, MessageHandler,
     filters, ContextTypes
